@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/vickymance/projeto-portfolio-crm/issues"
   },
-  "homepage": "https://github.com/vickymance/projeto-portfolio-crm#readme"
+  "homepage": "https://github.com/vickymance/projeto-portfolio-crm#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+  "swagger-ui-express": "^4.6.3",
+    "js-yaml": "^4.1.0"
+  }
 }

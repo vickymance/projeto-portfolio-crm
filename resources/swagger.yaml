@@ -1,0 +1,156 @@
+openapi: 3.0.0
+info:
+  title: API Carteira de Corretor de Imóveis
+  version: 1.0.0
+  description: API para acompanhamento de clientes de uma carteira de corretor de imóveis.
+servers:
+  - url: http://localhost:3000
+paths:
+  /auth/corretor/register:
+    post:
+      summary: Registro de corretor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        '201':
+          description: Corretor registrado com sucesso
+  /auth/corretor/login:
+    post:
+      summary: Login de corretor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        '200':
+          description: Login realizado com sucesso
+  /auth/cliente/register:
+    post:
+      summary: Registro de cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        '201':
+          description: Cliente registrado com sucesso
+  /auth/cliente/login:
+    post:
+      summary: Login de cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        '200':
+          description: Login realizado com sucesso
+  /imoveis:
+    get:
+      summary: Listar imóveis disponíveis
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de imóveis
+    post:
+      summary: Cadastrar imóvel
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                titulo:
+                  type: string
+                descricao:
+                  type: string
+                cidade:
+                  type: string
+                bairro:
+                  type: string
+                preco:
+                  type: number
+      responses:
+        '201':
+          description: Imóvel cadastrado
+  /clientes:
+    get:
+      summary: Listar clientes (corretor)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de clientes
+  /clientes/{id}/followup:
+    post:
+      summary: Registrar follow up de cliente
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  format: date
+                tipo_contato:
+                  type: string
+                anotacao:
+                  type: string
+                nivel_interesse:
+                  type: string
+      responses:
+        '201':
+          description: Follow up registrado
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
